@@ -5,9 +5,16 @@
  *****************/
 #include "public.h"
 #define	LIST_LEN	16
+//#define TEST_DELETE_BOTTIOM_N
+//#define TEST_REVERSE_LIST
+//#define TEST_REVERSE_LIST2
+#define TEST_DELETE_NODE
 
 /* external function */
 extern struct list_node* delete_bottom_n(struct list_node* head, int n);
+extern struct list_node* reverse_list(struct list_node* head);
+extern struct list_node* reverse_list2(struct list_node* head);
+extern struct list_node* delete_node(struct list_node** head, long val);
 
 /* local function */
 void print_list_local(struct list_node* head)
@@ -44,6 +51,7 @@ int main(int argc, char *argv[])
 	}
 	print_list_local(head);
 
+#ifdef TEST_DELETE_BOTTIOM_N
 	/* test delete_bottom_n */
 	next = delete_bottom_n(head, 3);
 	if (next)
@@ -53,6 +61,31 @@ int main(int argc, char *argv[])
 	print_list_local(head);
 	if (next)
 		free(next);
+#endif
+#ifdef TEST_REVERSE_LIST
+	/* test reverse_list */
+	head = reverse_list(head);
+	if (!head) {
+		printf("reverse_list return NULL!!! \n");
+		return -1;
+	}
+	print_list_local(head);
+#endif
+#ifdef TEST_REVERSE_LIST2
+	/* test reverse_list */
+	head = reverse_list2(head);
+        if (!head) {
+	        printf("reverse_list return NULL!!! \n");
+		return -1;
+	}
+        print_list_local(head);	
+#endif
+#ifdef TEST_DELETE_NODE
+	next = delete_node(&head, 12);
+	print_list_local(head);
+	if (next)
+		free(next);
+#endif
 
 free_list:
 	while (head) {
