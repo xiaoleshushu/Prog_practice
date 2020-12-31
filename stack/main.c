@@ -4,6 +4,9 @@
  *
  *****************/
 #include "public.h"
+//#define TEST_STACK_FUNC
+//#define TEST_STACK_SORT
+#define TEST_HANOI_TOW
 
 /* external function */
 extern int stack_empty(STACK *stack);
@@ -14,6 +17,7 @@ extern int stack_pop(STACK *stack);
 extern void print_stack(STACK *stack);
 extern int stack_depth(STACK *stack);
 extern void sort_stack(STACK *stack);
+extern void towers_of_hanoi(STACK *a, STACK *b, STACK *c);
 
 /* local function */
 void test_stack(STACK *stack)
@@ -49,24 +53,46 @@ void fill_stack_random(STACK *stack)
 	return;
 }
 
+void init_stack(STACK *stack)
+{
+	if (stack == NULL)
+		return;
+	memset(stack->data, 0, STACK_DEPTH*sizeof(int));
+	stack->top = 0;
+	stack->point = 0;
+	stack->depth = STACK_DEPTH;
+}
+
 int main(int argc, char *argv[])
 {
-	//int i;
 	int rc = -1;
 
 	STACK *stack;
 	INIT_STACK(stack);
-
+#ifdef TEST_STACK_FUNC
 	/*test stack ops*/
-	//test_stack(stack);
-	
+	test_stack(stack);
+#endif
+#ifdef TEST_STACK_SORT
 	/*fill stack with random number*/
 	fill_stack_random(stack);
 	print_stack(stack);
 
 	/*test stack sort*/
 	sort_stack(stack);
-	
+#endif
+#ifdef TEST_HANOI_TOW
+	/*test towers_of_hanoi*/
+	STACK a;
+	STACK b;
+	STACK c;
+	init_stack(&a);
+	init_stack(&b);
+	init_stack(&c);
+	fill_stack_random(&a);
+	towers_of_hanoi(&a, &b, &c);
+#endif
+
 	return rc;
 
 }

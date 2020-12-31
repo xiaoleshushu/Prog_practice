@@ -114,4 +114,40 @@ void sort_stack(STACK *stack)
 	return;
 }
 
+/*
+ *
+ * 汉诺塔问题：A B C ，把A上的全部移动到C上，且不能大压小
+ *
+ */
+/*move nu from m to n*/
+void start_move(int nu, STACK *a, STACK *c, STACK *b)
+{
+	if (a == NULL || c == NULL || b == NULL)
+		return;
+	if (nu == 1) {
+		stack_push(c, stack_pop(a));
+		return;
+	}
+	start_move(nu-1, a, b, c);
+	stack_push(c, stack_pop(a));
+	start_move(nu-1, b, c, a);
 
+	return;
+}
+void towers_of_hanoi(STACK *a, STACK *b, STACK *c)
+{
+	int n;
+
+	if (a == NULL || b == NULL || c == NULL)
+		return;
+	n = stack_depth(a);
+	printf("before movement, stack a:\n");
+	print_stack(a);
+	start_move(n, a, c, b);
+	if (!stack_empty(c)) {
+		printf("finished, stack c:\n");
+		print_stack(c);
+	} else {
+		printf("failed, c stack is empty!!!\n");
+	}
+}
