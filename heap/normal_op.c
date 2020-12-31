@@ -71,3 +71,21 @@ void build_heap_big(int *heap, int length)
 	return;
 }
 
+/* 堆排序 */
+/* 大顶堆用于从小到大排序 */
+void heap_sort_big_end(int *arry, int length)
+{
+	int tmp, i;
+
+	if (arry == NULL || length <= 1)
+		return;
+	for (i=length; i>1; i--) {
+		build_heap_big(arry, i);
+		/*交换数组头尾*/
+		tmp = arry[i-1];
+		arry[i-1] = arry[0];
+		arry[0] = tmp;
+	}
+
+	return;
+}
