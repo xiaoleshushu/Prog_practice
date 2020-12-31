@@ -1,6 +1,6 @@
 /*******************************
  *
- * array ops funcs
+ * stack ops funcs
  *
  ******************************/
 #include "public.h"
