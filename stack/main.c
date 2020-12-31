@@ -10,9 +10,10 @@ extern int stack_empty(STACK *stack);
 extern int stack_full(STACK *stack);
 extern int stack_top(STACK *stack);
 extern int stack_push(STACK *stack, int data);
-extern int stack_pop(STACK *stack, int *data);
+extern int stack_pop(STACK *stack);
 extern void print_stack(STACK *stack);
 extern int stack_depth(STACK *stack);
+extern void sort_stack(STACK *stack);
 
 /* local function */
 void test_stack(STACK *stack)
@@ -28,11 +29,23 @@ void test_stack(STACK *stack)
 		stack_push(stack, i);
 	printf("stack full? %d\n", stack_full(stack));
 	printf("stack top = %d\n", stack_top(stack));
-	stack_pop(stack, &i);
+	i = stack_pop(stack);
 	printf("stack pop : %d\n", i);
 	printf("now stack :\n");
 	print_stack(stack);
 	
+	return;
+}
+/*fill stack with random number*/
+void fill_stack_random(STACK *stack)
+{
+	if (stack == NULL)
+		return;
+	while (!stack_empty(stack))
+		stack_pop(stack);
+	while (!stack_full(stack))
+		stack_push(stack, rand()%16);
+
 	return;
 }
 
@@ -45,7 +58,14 @@ int main(int argc, char *argv[])
 	INIT_STACK(stack);
 
 	/*test stack ops*/
-	test_stack(stack);
+	//test_stack(stack);
+	
+	/*fill stack with random number*/
+	fill_stack_random(stack);
+	print_stack(stack);
+
+	/*test stack sort*/
+	sort_stack(stack);
 	
 	return rc;
 

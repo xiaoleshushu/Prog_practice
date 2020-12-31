@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #define STACK_DEPTH	16
 
 typedef struct stack {
