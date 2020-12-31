@@ -1,4 +1,8 @@
-# Prog_practice
-Programming practice
+#说明
+	1.此仓库的目的是保存平时编写的小程序;
+	2.保存部分 数据结构题的答案和测试程序;
+	3.保存以前写过的部分有意义的程序;
 
-add some codes that coding in daily life.
+#补充
+	1.每个子目录独立存在，有自己的main;
+	2.
