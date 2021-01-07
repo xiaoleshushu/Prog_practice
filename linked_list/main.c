@@ -8,13 +8,15 @@
 //#define TEST_DELETE_BOTTIOM_N
 //#define TEST_REVERSE_LIST
 //#define TEST_REVERSE_LIST2
-#define TEST_DELETE_NODE
+//#define TEST_DELETE_NODE
+#define TEST_DIGIT_LIST
 
 /* external function */
 extern struct list_node* delete_bottom_n(struct list_node* head, int n);
 extern struct list_node* reverse_list(struct list_node* head);
 extern struct list_node* reverse_list2(struct list_node* head);
 extern struct list_node* delete_node(struct list_node** head, long val);
+extern DIGIT_NODE *array_to_dlist(int *array, int count);
 
 /* local function */
 void print_list_local(struct list_node* head)
@@ -49,7 +51,7 @@ int main(int argc, char *argv[])
 		next->next = head->next;
 		head->next = next;
 	}
-	print_list_local(head);
+	//print_list_local(head);
 
 #ifdef TEST_DELETE_BOTTIOM_N
 	/* test delete_bottom_n */
@@ -85,6 +87,30 @@ int main(int argc, char *argv[])
 	print_list_local(head);
 	if (next)
 		free(next);
+#endif
+#ifdef TEST_DIGIT_LIST
+	DIGIT_NODE *dhead = NULL;
+	DIGIT_NODE *step = NULL;
+	DIGIT_NODE *prev = NULL;
+	int array[] = {13,4526,789};
+	dhead = array_to_dlist(array, sizeof(array)/sizeof(int));
+	if (!dhead) {
+		printf("get head failed!!!\n");
+		return -1;
+	}
+	/*debug dlist*/
+	step = dhead->next;
+	prev = dhead;
+	while(step) {
+		if (prev != step->prev)
+			printf(" ");
+		printf("%d", step->val);
+		if (prev != step->prev && step->prev != NULL)
+			printf("(%d)", step->prev->val);
+		prev = step;
+		step = step->next;
+	}
+	printf("\n");
 #endif
 
 free_list:
